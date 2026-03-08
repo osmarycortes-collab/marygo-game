@@ -14,6 +14,7 @@ const sonidoFuego = new Audio("sonidos/fuego.mp3")
 const sonidoAgua = new Audio("sonidos/agua.mp3")
 const sonidoTierra = new Audio("sonidos/tierra.mp3")
 
+
 function iniciarJuego(){
 
 document.getElementById("seleccionar-ataque").style.display = "none"
@@ -31,6 +32,7 @@ document.getElementById("boton-reiniciar").addEventListener("click", reiniciarJu
 
 }
 
+
 function regresarMascotas(){
 
 document.getElementById("seleccionar-ataque").style.display = "none"
@@ -38,17 +40,20 @@ document.getElementById("seleccionar-mascota").style.display = "flex"
 
 }
 
+
 function seleccionarMascotaJugador(){
 
-let sectionMascota = document.getElementById("seleccionar-mascota")
-sectionMascota.style.display = "none"
+let sectionSeleccionarMascota = document.getElementById("seleccionar-mascota")
+sectionSeleccionarMascota.style.display = "none"
 
-let sectionAtaque = document.getElementById("seleccionar-ataque")
-sectionAtaque.style.display = "flex"
+let sectionSeleccionarAtaque = document.getElementById("seleccionar-ataque")
+sectionSeleccionarAtaque.style.display = "flex"
 
 let inputMarydoge = document.getElementById("Marydoge")
 let inputMarypepo = document.getElementById("Marypepo")
 let inputMarygueya = document.getElementById("Marygueya")
+
+let mensajes = document.getElementById("mensajes")
 
 if(inputMarydoge.checked){
 mascotaJugador = "Marydoge"
@@ -67,14 +72,17 @@ alert("Selecciona una mascota")
 return
 }
 
+mensajes.innerHTML = `<p>Has seleccionado <b>${mascotaJugador}</b></p>`
+
 document.getElementById("img-jugador").src = imagenJugador
 
-let mensajes = document.getElementById("mensajes")
-mensajes.innerHTML = `<p>Has seleccionado <b>${mascotaJugador}</b></p>`
+document.getElementById("vidas-jugador").innerHTML = "❤️❤️❤️"
+document.getElementById("vidas-oponente").innerHTML = "❤️❤️❤️"
 
 seleccionarMascotaOponente()
 
 }
+
 
 function seleccionarMascotaOponente(){
 
@@ -106,11 +114,11 @@ imagenOponente = "mascotas/Marygueya.png"
 document.getElementById("img-oponente").src = imagenOponente
 
 let mensajes = document.getElementById("mensajes")
+
 mensajes.innerHTML += `<p>Tu oponente eligió <b>${mascotaOponente}</b></p>`
 
-actualizarCorazones()
-
 }
+
 
 function ataqueFuego(){
 
@@ -127,6 +135,7 @@ ataqueAleatorioOponente()
 
 }
 
+
 function ataqueAgua(){
 
 ataqueJugador = "AGUA"
@@ -142,6 +151,7 @@ ataqueAleatorioOponente()
 
 }
 
+
 function ataqueTierra(){
 
 ataqueJugador = "TIERRA"
@@ -156,6 +166,7 @@ sonidoTierra.pause()
 ataqueAleatorioOponente()
 
 }
+
 
 function ataqueAleatorioOponente(){
 
@@ -174,6 +185,7 @@ ataqueOponente = "TIERRA"
 combate()
 
 }
+
 
 function combate(){
 
@@ -212,16 +224,17 @@ revisarVidas()
 
 }
 
+
 function actualizarCorazones(){
 
 let corazonesJugador = ""
 let corazonesOponente = ""
 
-for(let i = 0; i < vidasJugador; i++){
+for(let i=0;i<vidasJugador;i++){
 corazonesJugador += "❤️"
 }
 
-for(let i = 0; i < vidasOponente; i++){
+for(let i=0;i<vidasOponente;i++){
 corazonesOponente += "❤️"
 }
 
@@ -238,55 +251,58 @@ document.getElementById("vidas-oponente").innerHTML = corazonesOponente
 
 }
 
+
 function revisarVidas(){
 
 if(vidasOponente == 0){
 
-crearMensajeFinal("🏆 FELICIDADES GANASTE, MARY CORTÉS TE DA LAS GRACIAS POR JUGAR SU PRIMER JUEGO")
+crearMensajeFinal("🏆 FELICIDADES, GANASTE! MARY CORTÉS ESTÁ MUY FELIZ QUE ESTÉS DISFRUTANDO DE SU PRIMER JUEGO CREADO")
 lanzarConfeti()
 
 }
 else if(vidasJugador == 0){
 
-crearMensajeFinal("💀 LO SIENTO PERDISTE, PERO NO TE DESANIMES SIGUE INTENTANDO")
+crearMensajeFinal("💀 LO SIENTO, PERDISTE; PERO NO TE DESANIMES SIGUE INTENTANDO")
 caritasTristes()
 
 }
 
 }
 
+
 function crearMensaje(resultado){
 
-let mensajes = document.getElementById("mensajes")
+let sectionMensajes = document.getElementById("mensajes")
 
 let iconoJugador = ""
 let iconoOponente = ""
 
-if(ataqueJugador == "FUEGO"){iconoJugador="🔥"}
-if(ataqueJugador == "AGUA"){iconoJugador="💧"}
-if(ataqueJugador == "TIERRA"){iconoJugador="🌱"}
+if(ataqueJugador == "FUEGO"){iconoJugador = "🔥"}
+if(ataqueJugador == "AGUA"){iconoJugador = "💧"}
+if(ataqueJugador == "TIERRA"){iconoJugador = "🌱"}
 
-if(ataqueOponente == "FUEGO"){iconoOponente="🔥"}
-if(ataqueOponente == "AGUA"){iconoOponente="💧"}
-if(ataqueOponente == "TIERRA"){iconoOponente="🌱"}
+if(ataqueOponente == "FUEGO"){iconoOponente = "🔥"}
+if(ataqueOponente == "AGUA"){iconoOponente = "💧"}
+if(ataqueOponente == "TIERRA"){iconoOponente = "🌱"}
 
 let parrafo = document.createElement("p")
 
 parrafo.innerHTML =
 `Tu mascota atacó con ${iconoJugador} - la mascota del enemigo atacó con ${iconoOponente} → ${resultado}`
 
-mensajes.appendChild(parrafo)
+sectionMensajes.appendChild(parrafo)
 
 }
 
+
 function crearMensajeFinal(resultadoFinal){
 
-let mensajes = document.getElementById("mensajes")
+let sectionMensajes = document.getElementById("mensajes")
 
 let parrafo = document.createElement("p")
 parrafo.innerHTML = resultadoFinal
 
-mensajes.appendChild(parrafo)
+sectionMensajes.appendChild(parrafo)
 
 document.getElementById("boton-fuego").disabled = true
 document.getElementById("boton-agua").disabled = true
@@ -296,11 +312,12 @@ document.getElementById("reiniciar").style.display = "block"
 
 }
 
+
 function lanzarConfeti(){
 
 for(let i=0;i<120;i++){
 
-let confeti=document.createElement("div")
+let confeti = document.createElement("div")
 
 confeti.innerHTML="🎉"
 
@@ -320,11 +337,12 @@ confeti.remove()
 
 }
 
+
 function caritasTristes(){
 
 for(let i=0;i<80;i++){
 
-let cara=document.createElement("div")
+let cara = document.createElement("div")
 
 cara.innerHTML="😢"
 
@@ -343,6 +361,7 @@ cara.remove()
 }
 
 }
+
 
 function reiniciarJuego(){
 location.reload()
